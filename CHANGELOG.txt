@@ -1,6 +1,9 @@
 
 CHANGELOG file for Style Guide.
 
+07-MAY-2011
+-- Patch #1142982 by dcmouyard, tsi. Better color css handling.
+
 22-DEC-2010
 -- Patch #1005118 by chalet16. Fixes api typo.
 
