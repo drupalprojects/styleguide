@@ -36,6 +36,16 @@ function styleguide_styleguide() {
     'content' => theme('item_list', styleguide_list(), ucwords(styleguide_word()), 'ol'),
     'group' => t('Lists'),
   );
+  $items['ul_long'] = array(
+    'title' => t('Unordered list with wrapped list items'),
+    'content' => theme('item_list', styleguide_list(3, 120), NULL, 'ul'),
+    'group' => t('Lists'),
+  );
+  $items['ol_long'] = array(
+    'title' => t('Ordered list with wrapped list items'),
+    'content' => theme('item_list', styleguide_list(3, 120), NULL, 'ol'),
+    'group' => t('Lists'),
+  );
   $items['menu_tree'] = array(
     'title' => t('Menu tree'),
     'content' => menu_tree('navigation'),
@@ -152,5 +162,6 @@ function styleguide_styleguide() {
     'content' => drupal_get_form('styleguide_form', $fieldsets),
     'group' => t('Forms'),
   );
+  dsm($items);
   return $items;
 }

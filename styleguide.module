@@ -168,19 +168,31 @@ function styleguide_page($theme = NULL) {
  * @return
  *   An array of words.
  */
-function styleguide_list($size = 5) {
+function styleguide_list($size = 5, $words = 3) {
   $items = array();
   for ($i = 0; $i < $size; $i++) {
-    $items[] = styleguide_word();
+    $items[] = styleguide_word($words, 'ucfirst');
   }
   return $items;
 }
 
 /**
- * Return a random word.
+ * Return a random word or words.
+ *
+ * @param $size
+ *   The number of words to return.
+ * @param $case
+ *   A string indicating the case to return. This is the name of a PHP function.
+ *   options are 'ucfirst', 'ucwords', 'strtoupper', and 'strtolower'.
+ *   Defaults to return strtolower().
  */
-function styleguide_word($size = 1) {
-  return styleguide_lorem(1, $size, 'lower', FALSE, FALSE);
+function styleguide_word($size = 1, $case = 'strtolower') {
+  $words = styleguide_lorem(1, $size, 'lower', FALSE, FALSE);
+  $functions = array('ucfirst', 'ucwords', 'strtoupper', 'strtolower');
+  if (!is_null($case) && function_exists($case) && in_array($case, $functions)) {
+    $words = $case($words);
+  }
+  return $words;
 }
 
 /**
