@@ -162,6 +162,6 @@ function styleguide_styleguide() {
     'content' => drupal_get_form('styleguide_form', $fieldsets),
     'group' => t('Forms'),
   );
-  dsm($items);
+
   return $items;
 }
