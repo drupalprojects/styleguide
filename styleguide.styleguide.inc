@@ -61,6 +61,11 @@ function styleguide_styleguide() {
     'content' => styleguide_paragraph(3),
     'group' => t('Text'),
   );
+  $items['blockquote'] = array(
+    'title' => t('Blockquote'),
+    'content' => styleguide_paragraph(1) . '<blockquote>' . styleguide_paragraph(1) . '</blockquote>' . styleguide_paragraph(1),
+    'group' => t('Text'),
+  );
   $items['image-horizontal'] = array(
     'title' => t('Image, horizontal'),
     'content' => theme('image', styleguide_image('horizontal'), t('My image'), t('My image')),
