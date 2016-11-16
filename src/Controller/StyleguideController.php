@@ -99,6 +99,8 @@ class StyleguideController extends ControllerBase {
       $items = array_merge($items, $plugin->items());
     }
 
+    $this->moduleHandler()->alter('styleguide', $items);
+
     $groups = array();
     foreach ($items as $key => $item) {
       if (!isset($item['group'])) {
