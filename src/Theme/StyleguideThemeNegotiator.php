@@ -29,21 +29,12 @@ class StyleguideThemeNegotiator implements ThemeNegotiatorInterface, ContainerIn
   protected $themeHandler;
 
   /**
-   * The current_route_match service.
-   *
-   * @var \Drupal\Core\Routing\CurrentRouteMatch
-   */
-  protected $currentRouteMatch;
-
-  /**
    * StyleguideThemeNegotiator constructor.
    *
    * @param \Drupal\Core\Extension\ThemeHandlerInterface $theme_handler
-   * @param \Drupal\Core\Routing\CurrentRouteMatch $current_route_match
    */
-  public function __construct(ThemeHandlerInterface $theme_handler, CurrentRouteMatch $current_route_match) {
+  public function __construct(ThemeHandlerInterface $theme_handler) {
     $this->themeHandler = $theme_handler;
-    $this->currentRouteMatch = $current_route_match;
   }
 
   /**
@@ -51,8 +42,7 @@ class StyleguideThemeNegotiator implements ThemeNegotiatorInterface, ContainerIn
    */
   public static function create(ContainerInterface $container) {
     new static(
-      $container->get('theme_handler'),
-      $container->get('current_route_match')
+      $container->get('theme_handler')
     );
   }
 
@@ -67,6 +57,9 @@ class StyleguideThemeNegotiator implements ThemeNegotiatorInterface, ContainerIn
    *   decide.
    */
   public function applies(RouteMatchInterface $route_match) {
+    if (strpos($route_match->getRouteName(), 'styleguide.') === FALSE) {
+      return FALSE;
+    }
 
     $themes = $this->themeHandler->rebuildThemeData();
     foreach ($themes as &$theme) {
@@ -74,7 +67,7 @@ class StyleguideThemeNegotiator implements ThemeNegotiatorInterface, ContainerIn
         continue;
       }
       if ($theme->status) {
-        $route_name = $this->currentRouteMatch->getRouteName();
+        $route_name = $route_match->getRouteName();
         if ($route_name == 'styleguide.' . $theme->getName() || $route_name == 'styleguide.maintenance_page.' . $theme->getName()) {
           $this->themeName = $theme->getName();
           return TRUE;
