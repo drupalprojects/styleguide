@@ -99,12 +99,11 @@ class StyleguideForm extends FormBase {
       '#default_value' => $this->generator->words(3, 'ucfirst'),
       '#description' => $this->generator->sentence(),
     ];
-    $form['autocomplete'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Autocomplete textfield'),
-      '#default_value' => $this->generator->words(),
+    $form['entity_autocomplete'] = [
+      '#type' => 'entity_autocomplete',
+      '#title' => $this->t('User entity autocomplete'),
       '#description' => $this->generator->sentence(),
-      '#autocomplete_path' => 'user/autocomplete',
+      '#target_type' => 'node',
     ];
     $form['textfield-machine'] = [
       '#type' => 'textfield',
