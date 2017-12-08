@@ -529,7 +529,7 @@ class DefaultStyleguide extends StyleguidePluginBase {
     $messages = array('status', 'warning', 'error');
     foreach ($messages as $message) {
       // Set a new message with a link.
-      drupal_set_message($this->generator->sentence('http://www.example.com'), $message);
+      drupal_set_message($this->generator->sentence(Url::fromUri('http://www.example.com')), $message);
       $items[$message . '-message'] = array(
         'title' => ucwords($message) . ' message',
         'content' => array(

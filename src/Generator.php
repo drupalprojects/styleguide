@@ -5,6 +5,7 @@ namespace Drupal\styleguide;
 use Drupal\Core\Url;
 use Drupal\Component\Utility\Random;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Drupal\Core\Render\Markup;
 
 /**
  * Class Generator.
@@ -165,18 +166,19 @@ class Generator implements GeneratorInterface {
     if ($link) {
       $explode = explode(' ', $sentence);
       $link = array(
-        '#theme' => 'link',
-        '#text' => $explode[0],
-        '#path' => $link,
+        '#type' => 'link',
+        '#title' => $explode[0],
+        '#url' => $link,
         '#options' => array(
           'attributes' => array(),
           'html' => FALSE,
         ),
+        '#text' => $explode[0],
       );
       $explode[0] = render($link);
       $sentence = implode(' ', $explode);
     }
-    return $sentence . '.';
+    return Markup::create($sentence . '.');
   }
 
   /**
