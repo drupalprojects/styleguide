@@ -53,10 +53,10 @@ class LayoutStyleguide extends StyleguidePluginBase {
    *   The styleguide generator service.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler service.
-   * @param \Drupal\Core\Layout\LayoutPluginManagerInterface $layout_plugin_manager
+   * @param \Drupal\Core\Layout\LayoutPluginManagerInterface|null $layout_plugin_manager
    *   The layout plugin manager.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, GeneratorInterface $styleguide_generator, ModuleHandlerInterface $module_handler, LayoutPluginManagerInterface $layout_plugin_manager) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, GeneratorInterface $styleguide_generator, ModuleHandlerInterface $module_handler, LayoutPluginManagerInterface $layout_plugin_manager=NULL) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
     $this->generator = $styleguide_generator;
@@ -74,7 +74,7 @@ class LayoutStyleguide extends StyleguidePluginBase {
       $plugin_definition,
       $container->get('styleguide.generator'),
       $container->get('module_handler'),
-      $container->get('plugin.manager.core.layout')
+      $container->has('plugin.manager.core.layout') ? $container->get('plugin.manager.core.layout') : NULL
     );
   }
 
@@ -82,7 +82,7 @@ class LayoutStyleguide extends StyleguidePluginBase {
    * {@inheritdoc}
    */
   public function items() {
-    if (!$this->moduleHandler->moduleExists('layout_discovery')) {
+    if (!$this->layoutPluginManager) {
       return [];
     }
     $items = [];
